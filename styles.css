@@ -85,3 +85,64 @@ nav a:hover {
     box-shadow: 0 0 15px #0ff, 0 0 25px #0ff inset;
     text-shadow: 0 0 15px #0ff, 0 0 30px #0ff;
 }
+.contact-section {
+    text-align: center;
+    padding: 50px;
+}
+
+.contact-section form {
+    display: inline-block;
+    max-width: 600px;
+    text-align: left;
+    margin: 0 auto;
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #00f7ff;
+}
+
+.contact-section h2 {
+    color: #0ff;
+    text-shadow: 0 0 10px #0ff;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #0ff;
+    text-shadow: 0 0 10px #0ff;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background: #000;
+    border: 2px solid #0ff;
+    color: #fff;
+    font-size: 1rem;
+    box-shadow: 0 0 10px #0ff;
+}
+
+form input:focus, form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 15px #0ff;
+}
+
+form button {
+    width: 100%;
+    background: none;
+    border: 2px solid #0ff;
+    color: #0ff;
+    padding: 10px;
+    cursor: pointer;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+    transition: all 0.3s;
+}
+
+form button:hover {
+    box-shadow: 0 0 15px #0ff, 0 0 25px #0ff inset;
+    text-shadow: 0 0 15px #0ff, 0 0 30px #0ff;
+}
