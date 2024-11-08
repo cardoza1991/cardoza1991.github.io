@@ -7,97 +7,380 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
+    <!-- Navigation Bar -->
     <nav class="bg-blue-600 text-white p-4">
         <div class="container mx-auto">
             <h1 class="text-2xl font-bold">Educational Booking System</h1>
         </div>
     </nav>
 
-    <div class="container mx-auto p-4">
-        <!-- Teacher Registration -->
-        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-xl font-bold mb-4">Teacher Registration</h2>
-            <form id="teacherForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium mb-1">Name</label>
-                    <input type="text" name="name" class="w-full p-2 border rounded" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Email</label>
-                    <input type="email" name="email" class="w-full p-2 border rounded" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Password</label>
-                    <input type="password" name="password" class="w-full p-2 border rounded" required>
-                </div>
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Register</button>
-            </form>
-        </div>
-
-        <!-- Student Management -->
-        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-xl font-bold mb-4">Student Management</h2>
-            <form id="studentForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium mb-1">Student Name</label>
-                    <input type="text" name="name" class="w-full p-2 border rounded" required>
-                </div>
-                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add Student</button>
-            </form>
-            
-            <div class="mt-6">
-                <h3 class="text-lg font-semibold mb-2">Student List</h3>
-                <div id="studentList" class="border rounded divide-y"></div>
-            </div>
-        </div>
-
-        <!-- Subject Management -->
-        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-xl font-bold mb-4">Study Management</h2>
-            <form id="subjectForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium mb-1">Add Bible Study Title</label>
-                    <input type="text" name="name" class="w-full p-2 border rounded" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Description</label>
-                    <textarea name="description" class="w-full p-2 border rounded" rows="3" required></textarea>
-                </div>
-                <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Create Subject</button>
-            </form>
-        </div>
-
-        <!-- Subject Assignment -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-xl font-bold mb-4">Assign Subject to Student</h2>
-            <form id="assignmentForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium mb-1">Select Student</label>
-                    <select name="student_id" class="w-full p-2 border rounded" required>
-                        <option value="">Choose a student...</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Select Sermon</label>
-                    <select name="subject_id" class="w-full p-2 border rounded" required>
-                        <option value="">Choose a sermon...</option>
-                    </select>
-                </div>
-                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Assign Sermon</button>
-            </form>
+    <!-- Tab Navigation -->
+    <div class="container mx-auto mt-6">
+        <div class="border-b border-gray-200">
+            <ul class="flex -mb-px">
+                <li class="mr-1">
+                    <button data-tab="bookingGrid" 
+                            class="tab-button bg-white inline-block py-2 px-4 text-blue-600 hover:text-blue-800 font-semibold border-l border-t border-r rounded-t">
+                        Booking Schedule
+                    </button>
+                </li>
+                <li class="mr-1">
+                    <button data-tab="teacherRegistration" 
+                            class="tab-button bg-gray-100 inline-block py-2 px-4 text-gray-600 hover:text-blue-800 font-semibold border-l border-t border-r rounded-t">
+                        Teacher Registration
+                    </button>
+                </li>
+                <li class="mr-1">
+                    <button data-tab="studentManagement" 
+                            class="tab-button bg-gray-100 inline-block py-2 px-4 text-gray-600 hover:text-blue-800 font-semibold border-l border-t border-r rounded-t">
+                        Student Management
+                    </button>
+                </li>
+                <li class="mr-1">
+                    <button data-tab="subjectManagement" 
+                            class="tab-button bg-gray-100 inline-block py-2 px-4 text-gray-600 hover:text-blue-800 font-semibold border-l border-t border-r rounded-t">
+                        Subject Management
+                    </button>
+                </li>
+            </ul>
         </div>
     </div>
 
-    <script>
-        // API endpoint base URL
-        const API_BASE = '/api';
+    <!-- Main Content Area -->
+    <div class="container mx-auto p-4">
+        <!-- Booking Grid Tab -->
+        <div id="bookingGrid" class="tab-content">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex justify-between items-center mb-4">
+                    <button id="prevWeek" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">← Previous Week</button>
+                    <h3 id="currentWeek" class="text-lg font-semibold">Week of </h3>
+                    <button id="nextWeek" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Next Week →</button>
+                </div>
 
-        // Teacher Registration
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr>
+                                <th class="border p-2 bg-gray-50">Time</th>
+                                <th class="border p-2 bg-gray-50">Monday</th>
+                                <th class="border p-2 bg-gray-50">Tuesday</th>
+                                <th class="border p-2 bg-gray-50">Wednesday</th>
+                                <th class="border p-2 bg-gray-50">Thursday</th>
+                                <th class="border p-2 bg-gray-50">Friday</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingGridBody">
+                            <!-- Time slots will be generated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teacher Registration Tab -->
+        <div id="teacherRegistration" class="tab-content hidden">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4">Teacher Registration</h2>
+                <form id="teacherForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Name</label>
+                        <input type="text" name="name" class="w-full p-2 border rounded" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Email</label>
+                        <input type="email" name="email" class="w-full p-2 border rounded" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Password</label>
+                        <input type="password" name="password" class="w-full p-2 border rounded" required>
+                    </div>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Register</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Student Management Tab -->
+        <div id="studentManagement" class="tab-content hidden">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4">Student Management</h2>
+                <form id="studentForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Student Name</label>
+                        <input type="text" name="name" class="w-full p-2 border rounded" required>
+                    </div>
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add Student</button>
+                </form>
+                
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold mb-2">Student List</h3>
+                    <div id="studentList" class="border rounded divide-y"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subject Management Tab -->
+        <div id="subjectManagement" class="tab-content hidden">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4">Subject Management</h2>
+                <form id="subjectForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Subject Name</label>
+                        <input type="text" name="name" class="w-full p-2 border rounded" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Description</label>
+                        <textarea name="description" class="w-full p-2 border rounded" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Create Subject</button>
+                </form>
+
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold mb-2">Subject List</h3>
+                    <div id="subjectList" class="border rounded divide-y"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg max-w-md w-full">
+            <h3 class="text-lg font-bold mb-4">Make a Reservation</h3>
+            <form id="bookingForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Select Student</label>
+                    <select name="student" class="w-full p-2 border rounded" required>
+                        <!-- Students will be populated here -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Select Subject</label>
+                    <select name="subject" class="w-full p-2 border rounded" required>
+                        <!-- Subjects will be populated here -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Notes</label>
+                    <textarea name="notes" class="w-full p-2 border rounded" rows="3"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Priority Level</label>
+                    <select name="priority" class="w-full p-2 border rounded" required>
+                        <option value="1">Unbaptized Contact</option>
+                        <option value="2">Persecuted Member</option>
+                        <option value="3">Unbaptized Zoom</option>
+                        <option value="4">Persecuted Zoom Member</option>
+                        <option value="5">Baptized Zoom</option>
+                        <option value="6">Group Activities</option>
+                        <option value="7">Team Activities</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" onclick="closeBookingModal()" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Cancel</button>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Reserve</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<!-- Main JavaScript -->
+<script>
+    // Global state
+    let currentDate = new Date();
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeTabs();
+        initializeBookingGrid();
+        loadStudents();
+        loadSubjects();
+        initializeFormHandlers();
+        
+        // Initialize week navigation
+        document.getElementById('prevWeek').addEventListener('click', handlePrevWeek);
+        document.getElementById('nextWeek').addEventListener('click', handleNextWeek);
+    });
+
+    // Tab System
+    function initializeTabs() {
+        const tabs = document.querySelectorAll('.tab-button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const tabId = e.target.dataset.tab;
+                switchTab(tabId, e.target);
+            });
+        });
+        // Set initial active tab
+        switchTab('bookingGrid', tabs[0]);
+    }
+
+    function switchTab(tabId, clickedTab) {
+        // Hide all content sections
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+        
+        // Show selected content
+        const selectedContent = document.getElementById(tabId);
+        selectedContent.classList.remove('hidden');
+        
+        // Update tab styles
+        document.querySelectorAll('.tab-button').forEach(tab => {
+            tab.classList.remove('bg-white', 'text-blue-600');
+            tab.classList.add('bg-gray-100', 'text-gray-600');
+        });
+        
+        clickedTab.classList.remove('bg-gray-100', 'text-gray-600');
+        clickedTab.classList.add('bg-white', 'text-blue-600');
+    }
+
+    // Booking Grid Functions
+    function initializeBookingGrid() {
+        const grid = document.getElementById('bookingGridBody');
+        grid.innerHTML = '';
+        
+        // Create time slots from 9 AM to 5 PM
+        for (let hour = 7; hour <= 24; hour++) {
+            const row = document.createElement('tr');
+            
+            // Time column
+            const timeCell = document.createElement('td');
+            timeCell.className = 'border p-2 font-medium';
+            timeCell.textContent = `${hour}:00`;
+            row.appendChild(timeCell);
+            
+            // Day columns
+            for (let day = 0; day < 5; day++) {
+                const cell = document.createElement('td');
+                cell.className = 'border p-2';
+                const bookButton = document.createElement('button');
+                bookButton.className = 'bg-green-500 text-white px-2 py-1 rounded text-sm hover:bg-green-600';
+                bookButton.textContent = 'Book';
+                bookButton.onclick = () => openBookingModal(day, hour);
+                cell.appendChild(bookButton);
+                row.appendChild(cell);
+            }
+            
+            grid.appendChild(row);
+        }
+        
+        updateWeekDisplay();
+    }
+
+    // Week Navigation
+    function handlePrevWeek() {
+        currentDate.setDate(currentDate.getDate() - 7);
+        updateWeekDisplay();
+    }
+
+    function handleNextWeek() {
+        currentDate.setDate(currentDate.getDate() + 7);
+        updateWeekDisplay();
+    }
+
+    function updateWeekDisplay() {
+        const options = { month: 'short', day: 'numeric', year: 'numeric' };
+        const weekStart = getWeekStart(currentDate);
+        const weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekEnd.getDate() + 4);
+        
+        document.getElementById('currentWeek').textContent = 
+            `Week of ${weekStart.toLocaleDateString('en-US', options)} - ${weekEnd.toLocaleDateString('en-US', options)}`;
+    }
+
+    function getWeekStart(date) {
+        const d = new Date(date);
+        const day = d.getDay();
+        const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+        return new Date(d.setDate(diff));
+    }
+
+    // Modal Functions
+    function openBookingModal(day, hour) {
+        const modal = document.getElementById('bookingModal');
+        modal.classList.remove('hidden');
+        modal.dataset.day = day;
+        modal.dataset.hour = hour;
+    }
+
+    function closeBookingModal() {
+        document.getElementById('bookingModal').classList.add('hidden');
+    }
+
+    // Data Loading Functions
+    async function loadStudents() {
+        try {
+            const response = await fetch('/api/students');
+            if (!response.ok) throw new Error('Failed to fetch students');
+            
+            const students = await response.json();
+            updateStudentList(students);
+            updateStudentSelect(students);
+        } catch (error) {
+            console.error('Error loading students:', error);
+        }
+    }
+
+    async function loadSubjects() {
+        try {
+            const response = await fetch('/api/subjects');
+            if (!response.ok) throw new Error('Failed to fetch subjects');
+            
+            const subjects = await response.json();
+            updateSubjectList(subjects);
+            updateSubjectSelect(subjects);
+        } catch (error) {
+            console.error('Error loading subjects:', error);
+        }
+    }
+
+    // UI Update Functions
+    function updateStudentList(students) {
+        const studentList = document.getElementById('studentList');
+        studentList.innerHTML = students.map(student => `
+            <div class="p-2 flex justify-between items-center">
+                <span>${student.name}</span>
+            </div>
+        `).join('');
+    }
+
+    function updateStudentSelect(students) {
+        const studentSelect = document.querySelector('select[name="student"]');
+        studentSelect.innerHTML = `
+            <option value="">Choose a student...</option>
+            ${students.map(student => `
+                <option value="${student.id}">${student.name}</option>
+            `).join('')}
+        `;
+    }
+
+    function updateSubjectList(subjects) {
+        const subjectList = document.getElementById('subjectList');
+        subjectList.innerHTML = subjects.map(subject => `
+            <div class="p-2">
+                <div class="font-medium">${subject.name}</div>
+                <div class="text-sm text-gray-600">${subject.description}</div>
+            </div>
+        `).join('');
+    }
+
+    function updateSubjectSelect(subjects) {
+        const subjectSelect = document.querySelector('select[name="subject"]');
+        subjectSelect.innerHTML = `
+            <option value="">Choose a subject...</option>
+            ${subjects.map(subject => `
+                <option value="${subject.id}">${subject.name}</option>
+            `).join('')}
+        `;
+    }
+
+    // Form Handlers
+    function initializeFormHandlers() {
+        // Teacher Registration Form
         document.getElementById('teacherForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
             try {
-                const response = await fetch(`${API_BASE}/teachers/register`, {
+                const response = await fetch('/api/teachers/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -110,7 +393,7 @@
                     alert('Teacher registered successfully!');
                     e.target.reset();
                 } else {
-                    alert('Failed to register teacher');
+                    throw new Error('Failed to register teacher');
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -118,12 +401,12 @@
             }
         });
 
-        // Student Management
+        // Student Management Form
         document.getElementById('studentForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
             try {
-                const response = await fetch(`${API_BASE}/students`, {
+                const response = await fetch('/api/students', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -135,7 +418,7 @@
                     e.target.reset();
                     loadStudents();
                 } else {
-                    alert('Failed to add student');
+                    throw new Error('Failed to add student');
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -143,12 +426,12 @@
             }
         });
 
-        // Subject Management
+        // Subject Management Form
         document.getElementById('subjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
             try {
-                const response = await fetch(`${API_BASE}/subjects`, {
+                const response = await fetch('/api/subjects', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -161,7 +444,7 @@
                     e.target.reset();
                     loadSubjects();
                 } else {
-                    alert('Failed to create subject');
+                    throw new Error('Failed to create subject');
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -169,60 +452,45 @@
             }
         });
 
-        // Subject Assignment
-        document.getElementById('assignmentForm').addEventListener('submit', async (e) => {
+        // Booking Form
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const modal = document.getElementById('bookingModal');
             const formData = new FormData(e.target);
+            const day = parseInt(modal.dataset.day);
+            const hour = parseInt(modal.dataset.hour);
+            
+            const bookingDate = new Date(currentDate);
+            bookingDate.setDate(bookingDate.getDate() + day);
+            bookingDate.setHours(hour, 0, 0, 0);
+
             try {
-                const response = await fetch(`${API_BASE}/subjects/assign`, {
+                const response = await fetch('/api/bookings', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        student_id: parseInt(formData.get('student_id')),
-                        subject_id: parseInt(formData.get('subject_id'))
+                        start_time: bookingDate.toISOString(),
+                        end_time: new Date(bookingDate.getTime() + 3600000).toISOString(),
+                        student_id: formData.get('student'),
+                        subject_id: formData.get('subject'),
+                        notes: formData.get('notes'),
+                        priority: parseInt(formData.get('priority'))
                     })
                 });
+                
                 if (response.ok) {
-                    alert('Subject assigned successfully!');
+                    alert('Booking created successfully!');
+                    closeBookingModal();
                     e.target.reset();
                 } else {
-                    alert('Failed to assign subject');
+                    throw new Error('Failed to create booking');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error assigning subject');
+                alert('Error creating booking');
             }
         });
-
-        // Load Students
-        async function loadStudents() {
-            try {
-                const response = await fetch(`${API_BASE}/students`);
-                if (response.ok) {
-                    const students = await response.json();
-                    const studentList = document.getElementById('studentList');
-                    const studentSelect = document.querySelector('select[name="student_id"]');
-                    
-                    // Update student list
-                    studentList.innerHTML = students.map(student => `
-                        <div class="p-2">${student.name}</div>
-                    `).join('');
-                    
-                    // Update student dropdown
-                    studentSelect.innerHTML = `
-                        <option value="">Choose a student...</option>
-                        ${students.map(student => `
-                            <option value="${student.id}">${student.name}</option>
-                        `).join('')}
-                    `;
-                }
-            } catch (error) {
-                console.error('Error loading students:', error);
-            }
-        }
-
-        // Initial load
-        loadStudents();
-    </script>
+    }
+</script>
 </body>
 </html>
