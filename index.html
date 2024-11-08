@@ -2,260 +2,227 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>🚀 CryptoAladdin - Degen Trading Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Booking System</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <style>
-        .glow {
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6;
-            }
-            to {
-                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0073e6, 0 0 40px #0073e6;
-            }
-        }
-        
-        .rocket {
-            animation: rocket 2s infinite;
-            transform-origin: center;
-        }
-        
-        @keyframes rocket {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .diamond {
-            animation: diamond 3s infinite;
-        }
-        
-        @keyframes diamond {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
 </head>
-<body class="bg-black text-white">
-    <!-- Hero Section -->
-    <div class="relative overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:w-full lg:pb-28 xl:pb-32 bg-black">
-                <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                    <div class="text-center">
-                        <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl glow">
-                            <span class="block">CRYPTO</span>
-                            <span class="block text-blue-500">ALADDIN</span>
-                        </h1>
-                        <p class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
-                            🚀 The Most Degen Trading Bot Ever Created 🚀
-                        </p>
-                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center">
-                            <div class="rounded-md shadow">
-                                <a href="#buy" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10">
-                                    APE IN NOW 🦍
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </main>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto">
+            <h1 class="text-2xl font-bold">Educational Booking System</h1>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-4">
+        <!-- Teacher Registration -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-bold mb-4">Teacher Registration</h2>
+            <form id="teacherForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Name</label>
+                    <input type="text" name="name" class="w-full p-2 border rounded" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Email</label>
+                    <input type="email" name="email" class="w-full p-2 border rounded" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Password</label>
+                    <input type="password" name="password" class="w-full p-2 border rounded" required>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Register</button>
+            </form>
+        </div>
+
+        <!-- Student Management -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-bold mb-4">Student Management</h2>
+            <form id="studentForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Student Name</label>
+                    <input type="text" name="name" class="w-full p-2 border rounded" required>
+                </div>
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add Student</button>
+            </form>
+            
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold mb-2">Student List</h3>
+                <div id="studentList" class="border rounded divide-y"></div>
             </div>
+        </div>
+
+        <!-- Subject Management -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-bold mb-4">Study Management</h2>
+            <form id="subjectForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Add Bible Study Title</label>
+                    <input type="text" name="name" class="w-full p-2 border rounded" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Description</label>
+                    <textarea name="description" class="w-full p-2 border rounded" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Create Subject</button>
+            </form>
+        </div>
+
+        <!-- Subject Assignment -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold mb-4">Assign Subject to Student</h2>
+            <form id="assignmentForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Select Student</label>
+                    <select name="student_id" class="w-full p-2 border rounded" required>
+                        <option value="">Choose a student...</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Select Sermon</label>
+                    <select name="subject_id" class="w-full p-2 border rounded" required>
+                        <option value="">Choose a sermon...</option>
+                    </select>
+                </div>
+                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Assign Sermon</button>
+            </form>
         </div>
     </div>
 
-    <!-- Features -->
-    <div class="py-12 bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-white glow">
-                    ULTIMATE DEGEN FEATURES
-                </h2>
-            </div>
+    <script>
+        // API endpoint base URL
+        const API_BASE = '/api';
 
-            <div class="mt-10">
-                <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-                    <!-- Feature 1 -->
-                    <div class="relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
-                        <div class="text-2xl mb-4">🤖</div>
-                        <h3 class="text-lg font-medium text-white">AI Trading</h3>
-                        <p class="mt-2 text-gray-400">
-                            Bot does the trading while you touch grass (jk we never touch grass)
-                        </p>
-                    </div>
+        // Teacher Registration
+        document.getElementById('teacherForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            try {
+                const response = await fetch(`${API_BASE}/teachers/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        password_hash: formData.get('password')
+                    })
+                });
+                if (response.ok) {
+                    alert('Teacher registered successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Failed to register teacher');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error registering teacher');
+            }
+        });
 
-                    <!-- Feature 2 -->
-                    <div class="relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
-                        <div class="text-2xl mb-4">🛡️</div>
-                        <h3 class="text-lg font-medium text-white">Rug Protection</h3>
-                        <p class="mt-2 text-gray-400">
-                            No more getting rugged by your wife's boyfriend
-                        </p>
-                    </div>
+        // Student Management
+        document.getElementById('studentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            try {
+                const response = await fetch(`${API_BASE}/students`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: formData.get('name')
+                    })
+                });
+                if (response.ok) {
+                    alert('Student added successfully!');
+                    e.target.reset();
+                    loadStudents();
+                } else {
+                    alert('Failed to add student');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error adding student');
+            }
+        });
 
-                    <!-- Feature 3 -->
-                    <div class="relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
-                        <div class="text-2xl mb-4">💎</div>
-                        <h3 class="text-lg font-medium text-white">HODL Mode</h3>
-                        <p class="mt-2 text-gray-400">
-                            Diamond hands protocol activated
-                        </p>
-                    </div>
+        // Subject Management
+        document.getElementById('subjectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            try {
+                const response = await fetch(`${API_BASE}/subjects`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: formData.get('name'),
+                        description: formData.get('description')
+                    })
+                });
+                if (response.ok) {
+                    alert('Subject created successfully!');
+                    e.target.reset();
+                    loadSubjects();
+                } else {
+                    alert('Failed to create subject');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error creating subject');
+            }
+        });
 
-                    <!-- Feature 4 -->
-                    <div class="relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
-                        <div class="text-2xl mb-4">🌊</div>
-                        <h3 class="text-lg font-medium text-white">MEV Protection</h3>
-                        <p class="mt-2 text-gray-400">
-                            Sandwiches are for eating, not trading
-                        </p>
-                    </div>
+        // Subject Assignment
+        document.getElementById('assignmentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            try {
+                const response = await fetch(`${API_BASE}/subjects/assign`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        student_id: parseInt(formData.get('student_id')),
+                        subject_id: parseInt(formData.get('subject_id'))
+                    })
+                });
+                if (response.ok) {
+                    alert('Subject assigned successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Failed to assign subject');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error assigning subject');
+            }
+        });
 
-                    <!-- Feature 5 -->
-                    <div class="relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
-                        <div class="text-2xl mb-4">🎯</div>
-                        <h3 class="text-lg font-medium text-white">Sniper Bot</h3>
-                        <p class="mt-2 text-gray-400">
-                            Faster than your paper hands
-                        </p>
-                    </div>
+        // Load Students
+        async function loadStudents() {
+            try {
+                const response = await fetch(`${API_BASE}/students`);
+                if (response.ok) {
+                    const students = await response.json();
+                    const studentList = document.getElementById('studentList');
+                    const studentSelect = document.querySelector('select[name="student_id"]');
+                    
+                    // Update student list
+                    studentList.innerHTML = students.map(student => `
+                        <div class="p-2">${student.name}</div>
+                    `).join('');
+                    
+                    // Update student dropdown
+                    studentSelect.innerHTML = `
+                        <option value="">Choose a student...</option>
+                        ${students.map(student => `
+                            <option value="${student.id}">${student.name}</option>
+                        `).join('')}
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading students:', error);
+            }
+        }
 
-                    <!-- Feature 6 -->
-                    <div class="relative bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
-                        <div class="text-2xl mb-4">📈</div>
-                        <h3 class="text-lg font-medium text-white">Moon Mode</h3>
-                        <p class="mt-2 text-gray-400">
-                            We only know one direction 🚀
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pricing -->
-    <div id="buy" class="py-12 bg-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-white glow">
-                    CHOOSE YOUR DEGEN LEVEL
-                </h2>
-            </div>
-
-            <div class="mt-10 grid gap-8 lg:grid-cols-3">
-                <!-- DEGEN Tier -->
-                <div class="bg-gray-800 rounded-lg shadow-xl p-8">
-                    <h3 class="text-2xl font-bold text-white mb-4">DEGEN</h3>
-                    <p class="text-4xl font-bold text-blue-500">$20</p>
-                    <ul class="mt-6 space-y-4">
-                        <li class="flex items-center">
-                            <span class="text-green-400 mr-2">✓</span>
-                            Basic Trading Bot
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-400 mr-2">✓</span>
-                            Simple Alerts
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-400 mr-2">✓</span>
-                            Rug Scanner
-                        </li>
-                    </ul>
-                    <button class="mt-8 w-full bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700">
-                        Buy Now 🤑
-                    </button>
-                </div>
-
-                <!-- MEGA DEGEN Tier -->
-                <div class="bg-gray-800 rounded-lg shadow-xl p-8 border-2 border-blue-500">
-                    <h3 class="text-2xl font-bold text-white mb-4">MEGA DEGEN</h3>
-                    <p class="text-4xl font-bold text-blue-500">$50</p>
-                    <ul class="mt-6 space-y-4">
-                        <li class="flex items-center">
-                            <span class="text-green-400 mr-2">✓</span>
-                            Everything in DEGEN
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-400 mr-2">✓</span>
-                            MEV Protection
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-400 mr-2">✓</span>
-                            NFT Sniper
-                        </li>
-                    </ul>
-                    <button class="mt-8 w-full bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700">
-                        Ape In 🦍
-                    </button>
-                </div>
-
-                <!-- GIGACHAD Tier -->
-                <div class="bg-gray-800 rounded-lg shadow-xl p-8">
-                    <h3 class="text-2xl font-bold text-white mb-4">GIGACHAD</h3>
-                    <p class="text-4xl font-bold text-blue-500">$100</p>
-                    <ul class="mt-6 space-y-4">
-                        <li class="flex items-center">
-                            <span class="text-green-400 mr-2">✓</span>
-                            Everything in MEGA DEGEN
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-400 mr-2">✓</span>
-                            100x Leverage
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-400 mr-2">✓</span>
-                            VIP Support
-                        </li>
-                    </ul>
-                    <button class="mt-8 w-full bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700">
-                        Become Chad 💪
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Testimonials -->
-    <div class="py-12 bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-white glow">
-                    WHAT THE DEGENS SAY
-                </h2>
-            </div>
-
-            <div class="mt-10 grid gap-8 lg:grid-cols-3">
-                <div class="bg-gray-800 rounded-lg p-6">
-                    <p class="text-gray-300">"Bot literally only goes up. Uninstalled TradingView."</p>
-                    <p class="mt-4 text-blue-500">- CryptoChad420</p>
-                </div>
-
-                <div class="bg-gray-800 rounded-lg p-6">
-                    <p class="text-gray-300">"Saved me from 69 rugs last week. Based."</p>
-                    <p class="mt-4 text-blue-500">- RugPullSurvivor</p>
-                </div>
-
-                <div class="bg-gray-800 rounded-lg p-6">
-                    <p class="text-gray-300">"Wife's boyfriend finally respects me."</p>
-                    <p class="mt-4 text-blue-500">- DegenApe_ETH</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-black py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400">
-                ⚠️ Not financial advice. DYOR. Probably nothing. 
-            </p>
-            <p class="text-gray-400 mt-2">
-                🚀 To the moon! 🌕
-            </p>
-        </div>
-    </footer>
-
+        // Initial load
+        loadStudents();
+    </script>
 </body>
 </html>
