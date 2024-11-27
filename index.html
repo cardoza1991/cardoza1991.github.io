@@ -15,73 +15,47 @@
             <p class="text-2xl text-gray-400">Your Private AI. Your Data. Your Control.</p>
         </div>
 
-        <!-- Pricing Tiers -->
-        <div class="grid md:grid-cols-3 gap-8 mb-12">
-            <!-- Developer -->
-            <div class="bg-gray-900 rounded-xl p-6 transform hover:scale-105 transition duration-300">
-                <h3 class="text-2xl font-bold mb-4">Developer Box</h3>
-                <p class="text-4xl font-bold mb-6">$3,000</p>
-                <ul class="space-y-3 mb-8">
-                    <li>✓ Perfect for small teams</li>
-                    <li>✓ Handles all basic tasks</li>
-                    <li>✓ 15 conversations at once</li>
-                    <li>✓ Simple setup</li>
-                    <li>✓ 24/7 reliability</li>
-                </ul>
-                <button class="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-lg">
-                    Get Started
-                </button>
-            </div>
-
-            <!-- Business -->
-            <div class="bg-gray-900 rounded-xl p-6 transform hover:scale-105 transition duration-300 border-2 border-purple-500">
-                <div class="absolute top-0 right-0 bg-purple-500 text-white px-3 py-1 rounded-bl-lg">
-                    POPULAR
+        <!-- Single Product Focus -->
+        <div class="max-w-lg mx-auto bg-gray-900 rounded-xl p-8 transform hover:scale-105 transition duration-300 mb-12">
+            <h3 class="text-2xl font-bold mb-4">Developer Box</h3>
+            <p class="text-4xl font-bold mb-6">$3,000</p>
+            <ul class="space-y-3 mb-8">
+                <li>✓ 7B Parameter Model</li>
+                <li>✓ RTX 4070 (12GB)</li>
+                <li>✓ 32GB RAM</li>
+                <li>✓ Basic API Access</li>
+                <li>✓ 15 req/second</li>
+            </ul>
+            <!-- Square Payment Button -->
+            <div class="flex justify-center">
+                <div style="
+                    overflow: auto;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    align-items: center;
+                    width: 259px;
+                    background: #FFFFFF;
+                    border: 1px solid rgba(0, 0, 0, 0.1);
+                    box-shadow: -2px 10px 5px rgba(0, 0, 0, 0);
+                    border-radius: 10px;
+                    font-family: SQ Market, SQ Market, Helvetica, Arial, sans-serif;
+                ">
+                    <div style="padding: 20px;">
+                        <a target="_blank" href="https://square.link/u/gMmZeQSz?src=embed" style="
+                            display: inline-block;
+                            font-size: 18px;
+                            line-height: 48px;
+                            height: 48px;
+                            color: #ffffff;
+                            min-width: 212px;
+                            background-color: #006aff;
+                            text-align: center;
+                            box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset;
+                            border-radius: 6px;
+                        ">Buy now</a>
+                    </div>
                 </div>
-                <h3 class="text-2xl font-bold mb-4">Business Box</h3>
-                <p class="text-4xl font-bold mb-6">$8,000</p>
-                <ul class="space-y-3 mb-8">
-                    <li>✓ Handles entire departments</li>
-                    <li>✓ Advanced capabilities</li>
-                    <li>✓ 50 conversations at once</li>
-                    <li>✓ White-glove setup</li>
-                    <li>✓ Priority support</li>
-                </ul>
-                <button class="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-lg">
-                    Go Business
-                </button>
-            </div>
-
-            <!-- Enterprise -->
-            <div class="bg-gray-900 rounded-xl p-6 transform hover:scale-105 transition duration-300">
-                <h3 class="text-2xl font-bold mb-4">Enterprise Box</h3>
-                <p class="text-4xl font-bold mb-6">$25,000+</p>
-                <ul class="space-y-3 mb-8">
-                    <li>✓ Unlimited capability</li>
-                    <li>✓ Company-wide solution</li>
-                    <li>✓ Unlimited conversations</li>
-                    <li>✓ Custom security setup</li>
-                    <li>✓ Dedicated support team</li>
-                </ul>
-                <button class="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-lg">
-                    Contact Sales
-                </button>
-            </div>
-        </div>
-
-        <!-- Features Grid -->
-        <div class="grid md:grid-cols-3 gap-8 mb-12">
-            <div class="bg-gray-900 p-6 rounded-xl">
-                <h3 class="text-xl font-bold mb-2">Just Works™</h3>
-                <p class="text-gray-400">Plug it in. Turn it on. That's it.</p>
-            </div>
-            <div class="bg-gray-900 p-6 rounded-xl">
-                <h3 class="text-xl font-bold mb-2">Always Private</h3>
-                <p class="text-gray-400">Your data never leaves your building.</p>
-            </div>
-            <div class="bg-gray-900 p-6 rounded-xl">
-                <h3 class="text-xl font-bold mb-2">No Hidden Costs</h3>
-                <p class="text-gray-400">One price. Own it forever.</p>
             </div>
         </div>
 
@@ -91,11 +65,20 @@
             <p class="text-xl text-gray-400">We ship it. You own it. Do whatever you want with it.</p>
         </div>
 
-        <!-- Bottom CTA -->
-        <div class="text-center">
-            <button class="bg-gradient-to-r from-purple-400 to-pink-600 text-white font-bold py-4 px-8 rounded-full text-xl hover:opacity-90 transition duration-300">
-                Get Your Box 📦
-            </button>
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-gray-900 p-6 rounded-xl">
+                <h3 class="text-xl font-bold mb-2">Privacy First</h3>
+                <p class="text-gray-400">Your data never leaves your network. Ever.</p>
+            </div>
+            <div class="bg-gray-900 p-6 rounded-xl">
+                <h3 class="text-xl font-bold mb-2">Custom Training</h3>
+                <p class="text-gray-400">Fine-tune on your company's data.</p>
+            </div>
+            <div class="bg-gray-900 p-6 rounded-xl">
+                <h3 class="text-xl font-bold mb-2">No Subscriptions</h3>
+                <p class="text-gray-400">One-time purchase. No cloud bills.</p>
+            </div>
         </div>
     </div>
 </body>
