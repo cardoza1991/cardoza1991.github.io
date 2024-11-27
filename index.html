@@ -1,550 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Educational Booking System</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
-    <!-- Navigation Bar -->
-    <nav class="bg-blue-600 text-white p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Educational Booking System</h1>
-            <div id="authButtons" class="space-x-2">
-                <!-- Auth buttons will be injected here -->
+<body class="bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 py-12">
+        <!-- Hero with security emphasis -->
+        <div class="text-center mb-16">
+            <h1 class="text-6xl font-bold mb-4">Secure AI Infrastructure</h1>
+            <p class="text-2xl text-gray-400">Mission-Critical. Air-Gapped. NIST Compliant.</p>
+        </div>
+
+        <!-- Model Options -->
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <!-- Tactical Deployment -->
+            <div class="bg-gray-800 rounded-xl p-6 border-2 border-gray-700">
+                <h3 class="text-2xl font-bold mb-4">Tactical Deployment</h3>
+                <p class="text-4xl font-bold mb-6">$25,000</p>
+                <div class="mb-4">
+                    <h4 class="font-bold mb-2">Clearance Level:</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• Secret Compatible</li>
+                        <li>• FIPS 140-2 Certified</li>
+                        <li>• Zero Cloud Dependency</li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h4 class="font-bold mb-2">Infrastructure:</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• Hardened Hardware</li>
+                        <li>• 13B Secure Model</li>
+                        <li>• 128GB ECC RAM</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Strategic Operations -->
+            <div class="bg-gray-800 rounded-xl p-6 border-2 border-gray-700">
+                <h3 class="text-2xl font-bold mb-4">Strategic Operations</h3>
+                <p class="text-4xl font-bold mb-6">$50,000</p>
+                <div class="mb-4">
+                    <h4 class="font-bold mb-2">Clearance Level:</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• Top Secret Compatible</li>
+                        <li>• NIST SP 800-53 Compliant</li>
+                        <li>• Secure Data Processing</li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h4 class="font-bold mb-2">Infrastructure:</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• Redundant Systems</li>
+                        <li>• 70B Secure Model</li>
+                        <li>• 512GB ECC RAM</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Command & Control -->
+            <div class="bg-gray-800 rounded-xl p-6 border-2 border-gray-700">
+                <h3 class="text-2xl font-bold mb-4">Command & Control</h3>
+                <p class="text-4xl font-bold mb-6">$150,000+</p>
+                <div class="mb-4">
+                    <h4 class="font-bold mb-2">Clearance Level:</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• TS/SCI Compatible</li>
+                        <li>• Custom Security Controls</li>
+                        <li>• Multi-Domain Operations</li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h4 class="font-bold mb-2">Infrastructure:</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• Full Redundancy</li>
+                        <li>• Multiple Model Support</li>
+                        <li>• Mission-Specific Config</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </nav>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-lg max-w-md w-full">
-            <h3 class="text-lg font-bold mb-4">Teacher Login</h3>
-            <form id="loginForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium mb-1">Email</label>
-                    <input type="email" name="email" class="w-full p-2 border rounded" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Password</label>
-                    <input type="password" name="password" class="w-full p-2 border rounded" required>
-                </div>
-                <div class="flex justify-end space-x-2">
-                    <button type="button" onclick="closeLoginModal()" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Cancel</button>
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Login</button>
-                </div>
-            </form>
+        <!-- Security-Focused Bottom -->
+        <div class="text-center">
+            <h2 class="text-3xl font-bold mb-4">Secure By Design</h2>
+            <p class="text-xl text-gray-400 mb-8">Complete operational control. Air-gapped deployment. Zero data exposure.</p>
+            <button class="bg-blue-700 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg text-xl">
+                Request Secure Consultation 🔒
+            </button>
         </div>
     </div>
-
-    <!-- Tab Navigation -->
-    <div class="container mx-auto mt-6">
-        <div class="border-b border-gray-200">
-            <ul class="flex -mb-px">
-                <li class="mr-1">
-                    <button data-tab="bookingGrid" 
-                            class="tab-button bg-white inline-block py-2 px-4 text-blue-600 hover:text-blue-800 font-semibold border-l border-t border-r rounded-t">
-                        Booking Schedule
-                    </button>
-                </li>
-                <li class="mr-1">
-                    <button data-tab="teacherRegistration" data-teacher-only 
-                            class="tab-button bg-gray-100 inline-block py-2 px-4 text-gray-600 hover:text-blue-800 font-semibold border-l border-t border-r rounded-t">
-                        Teacher Registration
-                    </button>
-                </li>
-                <li class="mr-1">
-                    <button data-tab="studentManagement" data-teacher-only
-                            class="tab-button bg-gray-100 inline-block py-2 px-4 text-gray-600 hover:text-blue-800 font-semibold border-l border-t border-r rounded-t">
-                        Student Management
-                    </button>
-                </li>
-                <li class="mr-1">
-                    <button data-tab="subjectManagement" data-teacher-only
-                            class="tab-button bg-gray-100 inline-block py-2 px-4 text-gray-600 hover:text-blue-800 font-semibold border-l border-t border-r rounded-t">
-                        Subject Management
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Main Content Area -->
-    <div class="container mx-auto p-4">
-        <!-- Booking Grid Tab -->
-        <div id="bookingGrid" class="tab-content">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <div class="flex justify-between items-center mb-4">
-                    <button id="prevWeek" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">← Previous Week</button>
-                    <h3 id="currentWeek" class="text-lg font-semibold">Week of </h3>
-                    <button id="nextWeek" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Next Week →</button>
-                </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
-                        <thead>
-                            <tr>
-                                <th class="border p-2 bg-gray-50">Time</th>
-                                <th class="border p-2 bg-gray-50">Monday</th>
-                                <th class="border p-2 bg-gray-50">Tuesday</th>
-                                <th class="border p-2 bg-gray-50">Wednesday</th>
-                                <th class="border p-2 bg-gray-50">Thursday</th>
-                                <th class="border p-2 bg-gray-50">Friday</th>
-                                <th class="border p-2 bg-gray-50">Saturday</th>
-                                <th class="border p-2 bg-gray-50">Sunday</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bookingGridBody">
-                            <!-- Time slots will be generated here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Teacher Registration Tab -->
-        <div id="teacherRegistration" class="tab-content hidden">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-bold mb-4">Teacher Registration</h2>
-                <form id="teacherForm" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Name</label>
-                        <input type="text" name="name" class="w-full p-2 border rounded" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Email</label>
-                        <input type="email" name="email" class="w-full p-2 border rounded" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Password</label>
-                        <input type="password" name="password" class="w-full p-2 border rounded" required>
-                    </div>
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Register</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Student Management Tab -->
-        <div id="studentManagement" class="tab-content hidden">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-bold mb-4">Student Management</h2>
-                <form id="studentForm" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Student Name</label>
-                        <input type="text" name="name" class="w-full p-2 border rounded" required>
-                    </div>
-                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add Student</button>
-                </form>
-                
-                <div class="mt-6">
-                    <h3 class="text-lg font-semibold mb-2">Student List</h3>
-                    <div id="studentList" class="border rounded divide-y"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Subject Management Tab -->
-        <div id="subjectManagement" class="tab-content hidden">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-bold mb-4">Subject Management</h2>
-                <form id="subjectForm" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Subject Name</label>
-                        <input type="text" name="name" class="w-full p-2 border rounded" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Description</label>
-                        <textarea name="description" class="w-full p-2 border rounded" rows="3" required></textarea>
-                    </div>
-                    <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Create Subject</button>
-                </form>
-
-                <div class="mt-6">
-                    <h3 class="text-lg font-semibold mb-2">Subject List</h3>
-                    <div id="subjectList" class="border rounded divide-y"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-lg max-w-md w-full">
-            <h3 class="text-lg font-bold mb-4">Make a Reservation</h3>
-            <form id="bookingForm" class="space-y-4">
-                <!-- Student select (teacher only) -->
-                <div class="teacher-only hidden">
-                    <label class="block text-sm font-medium mb-1">Select Student</label>
-                    <select name="student" class="w-full p-2 border rounded">
-                        <!-- Students will be populated here -->
-                    </select>
-                </div>
-                <!-- Name input (non-teacher only) -->
-                <div class="non-teacher-only">
-                    <label class="block text-sm font-medium mb-1">Your Name</label>
-                    <input type="text" name="userName" class="w-full p-2 border rounded" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Select Subject</label>
-                    <select name="subject" class="w-full p-2 border rounded" required>
-                        <!-- Subjects will be populated here -->
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Notes</label>
-                    <textarea name="notes" class="w-full p-2 border rounded" rows="3"></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Priority Level</label>
-                    <select name="priority" class="w-full p-2 border rounded" required>
-                        <option value="1">Unbaptized Contact</option>
-                        <option value="2">Persecuted Member</option>
-                        <option value="3">Unbaptized Zoom</option>
-                        <option value="4">Persecuted Zoom Member</option>
-                        <option value="5">Baptized Zoom</option>
-                        <option value="6">Group Activities</option>
-                        <option value="7">Team Activities</option>
-                    </select>
-                </div>
-                <div class="flex justify-end space-x-2">
-                    <button type="button" onclick="closeBookingModal()" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Cancel</button>
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Reserve</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Main JavaScript -->
-    <script>
-    // Global state
-    let isTeacherLoggedIn = false;
-    let currentTeacher = null;
-    let currentDate = new Date();
-
-    // Initialize everything when DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeAuthState();
-        initializeTabs();
-        initializeBookingGrid();
-        initializeFormHandlers();
-        
-        // Initialize week navigation
-        document.getElementById('prevWeek').addEventListener('click', handlePrevWeek);
-        document.getElementById('nextWeek').addEventListener('click', handleNextWeek);
-    });
-
-    // Authentication Functions
-    function updateAuthUI() {
-        const authButtons = document.getElementById('authButtons');
-        if (isTeacherLoggedIn && currentTeacher) {
-            authButtons.innerHTML = `
-                <span class="text-white mr-4">Welcome, ${currentTeacher.name}</span>
-                <button onclick="handleLogout()" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-50">
-                    Logout
-                </button>
-            `;
-            // Show teacher-only elements
-            document.querySelectorAll('[data-teacher-only]').forEach(el => {
-                el.classList.remove('hidden');
-            });
-            document.querySelectorAll('.teacher-only').forEach(el => {
-                el.classList.remove('hidden');
-            });
-            document.querySelectorAll('.non-teacher-only').forEach(el => {
-                el.classList.add('hidden');
-            });
-        } else {
-            authButtons.innerHTML = `
-                <button onclick="openLoginModal()" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-50">
-                    Teacher Login
-                </button>
-            `;
-            // Hide teacher-only elements
-            document.querySelectorAll('[data-teacher-only]').forEach(el => {
-                el.classList.add('hidden');
-            });
-            document.querySelectorAll('.teacher-only').forEach(el => {
-                el.classList.add('hidden');
-            });
-            document.querySelectorAll('.non-teacher-only').forEach(el => {
-                el.classList.remove('hidden');
-            });
-        }
-    }
-
-    // Modal Functions
-    function openLoginModal() {
-        document.getElementById('loginModal').classList.remove('hidden');
-    }
-
-    function closeLoginModal() {
-        document.getElementById('loginModal').classList.add('hidden');
-    }
-
-    // Auth handlers
-    async function handleLogin(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        
-        try {
-            const response = await fetch('/api/teachers/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: formData.get('email'),
-                    password: formData.get('password')
-                })
-            });
-
-            if (!response.ok) throw new Error('Login failed');
-
-            const data = await response.json();
-            isTeacherLoggedIn = true;
-            currentTeacher = data.teacher;
-            localStorage.setItem('teacherToken', data.token);
-            updateAuthUI();
-            closeLoginModal();
-        } catch (error) {
-            console.error('Login error:', error);
-            alert('Login failed. Please check your credentials.');
-        }
-    }
-
-    function handleLogout() {
-        isTeacherLoggedIn = false;
-        currentTeacher = null;
-        localStorage.removeItem('teacherToken');
-        updateAuthUI();
-        switchTab('bookingGrid', document.querySelector('[data-tab="bookingGrid"]'));
-    }
-
-    // Tab System
-    function initializeTabs() {
-        const tabs = document.querySelectorAll('.tab-button');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                const tabId = e.target.dataset.tab;
-                switchTab(tabId, e.target);
-            });
-        });
-        // Set initial active tab
-        switchTab('bookingGrid', document.querySelector('[data-tab="bookingGrid"]'));
-    }
-
-    function switchTab(tabId, clickedTab) {
-        // Hide all content sections
-        document.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.add('hidden');
-        });
-        
-        // Show selected content
-        const selectedContent = document.getElementById(tabId);
-        if (selectedContent) {
-            selectedContent.classList.remove('hidden');
-        }
-        
-        // Update tab styles
-        document.querySelectorAll('.tab-button').forEach(tab => {
-            tab.classList.remove('bg-white', 'text-blue-600');
-            tab.classList.add('bg-gray-100', 'text-gray-600');
-        });
-        
-        if (clickedTab) {
-            clickedTab.classList.remove('bg-gray-100', 'text-gray-600');
-            clickedTab.classList.add('bg-white', 'text-blue-600');
-        }
-    }
-
-    // Booking Grid Functions
-    function initializeBookingGrid() {
-        const grid = document.getElementById('bookingGridBody');
-        grid.innerHTML = '';
-        
-        // Create time slots from 7 AM to 12 AM
-        for (let hour = 7; hour <= 24; hour++) {
-            const row = document.createElement('tr');
-            
-            // Time column
-            const timeCell = document.createElement('td');
-            timeCell.className = 'border p-2 font-medium';
-            timeCell.textContent = `${hour}:00`;
-            row.appendChild(timeCell);
-            
-            // Day columns
-            for (let day = 0; day < 7; day++) {
-                const cell = document.createElement('td');
-                cell.className = 'border p-2';
-                const bookButton = document.createElement('button');
-                bookButton.className = 'bg-green-500 text-white px-2 py-1 rounded text-sm hover:bg-green-600';
-                bookButton.textContent = 'Book';
-                bookButton.onclick = () => openBookingModal(day, hour);
-                cell.appendChild(bookButton);
-                row.appendChild(cell);
-            }
-            
-            grid.appendChild(row);
-        }
-        
-        updateWeekDisplay();
-        loadBookings();
-    }
-
-    // Week Navigation
-    function handlePrevWeek() {
-        currentDate.setDate(currentDate.getDate() - 7);
-        updateWeekDisplay();
-        loadBookings();
-    }
-
-    function handleNextWeek() {
-        currentDate.setDate(currentDate.getDate() + 7);
-        updateWeekDisplay();
-        loadBookings();
-    }
-
-    function updateWeekDisplay() {
-        const options = { month: 'short', day: 'numeric', year: 'numeric' };
-        const weekStart = getWeekStart(currentDate);
-        const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekEnd.getDate() + 6);
-        
-        document.getElementById('currentWeek').textContent = 
-            `Week of ${weekStart.toLocaleDateString('en-US', options)} - ${weekEnd.toLocaleDateString('en-US', options)}`;
-    }
-
-    function getWeekStart(date) {
-        const d = new Date(date);
-        const day = d.getDay();
-        const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-        return new Date(d.setDate(diff));
-    }
-
-    // Booking Functions
-    function openBookingModal(day, hour) {
-        const modal = document.getElementById('bookingModal');
-        modal.classList.remove('hidden');
-        modal.dataset.day = day;
-        modal.dataset.hour = hour;
-
-        // Show/hide fields based on teacher status
-        const teacherOnlyFields = modal.querySelectorAll('.teacher-only');
-        const nonTeacherFields = modal.querySelectorAll('.non-teacher-only');
-
-        if (isTeacherLoggedIn) {
-            teacherOnlyFields.forEach(field => field.classList.remove('hidden'));
-            nonTeacherFields.forEach(field => field.classList.add('hidden'));
-        } else {
-            teacherOnlyFields.forEach(field => field.classList.add('hidden'));
-            nonTeacherFields.forEach(field => field.classList.remove('hidden'));
-        }
-    }
-
-    function closeBookingModal() {
-        document.getElementById('bookingModal').classList.add('hidden');
-    }
-
-    // Form Initialization
-    function initializeFormHandlers() {
-        // Login form
-        document.getElementById('loginForm').addEventListener('submit', handleLogin);
-
-        // Booking form
-        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const modal = document.getElementById('bookingModal');
-            const formData = new FormData(e.target);
-            const day = parseInt(modal.dataset.day);
-            const hour = parseInt(modal.dataset.hour);
-            
-            const bookingDate = new Date(currentDate);
-            bookingDate.setDate(bookingDate.getDate() + day);
-            bookingDate.setHours(hour, 0, 0, 0);
-
-            const bookingData = {
-                start_time: bookingDate.toISOString(),
-                end_time: new Date(bookingDate.getTime() + 3600000).toISOString(),
-                subject_id: formData.get('subject'),
-                notes: formData.get('notes'),
-                priority: parseInt(formData.get('priority'))
-            };
-
-            if (isTeacherLoggedIn) {
-                bookingData.student_id = formData.get('student');
-            } else {
-                bookingData.user_name = formData.get('userName');
-            }
-
-            try {
-                const response = await fetch('/api/bookings', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(bookingData)
-                });
-                
-                if (response.ok) {
-                    alert('Booking created successfully!');
-                    closeBookingModal();
-                    e.target.reset();
-                    loadBookings();
-                } else {
-                    throw new Error('Failed to create booking');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error creating booking');
-            }
-        });
-    }
-
-    // Data Loading Functions
-    async function loadBookings() {
-        try {
-            const weekStart = getWeekStart(currentDate);
-            const weekEnd = new Date(weekStart);
-            weekEnd.setDate(weekEnd.getDate() + 7);
-
-            const response = await fetch(
-                `/api/bookings?start_date=${weekStart.toISOString()}&end_date=${weekEnd.toISOString()}`
-            );
-            
-            if (!response.ok) throw new Error('Failed to fetch bookings');
-            
-            const bookings = await response.json();
-            updateBookingGrid(bookings);
-        } catch (error) {
-            console.error('Error loading bookings:', error);
-        }
-    }
-
-    function updateBookingGrid(bookings) {
-        // Clear existing bookings
-        document.querySelectorAll('.booking-cell').forEach(cell => {
-            cell.innerHTML = '';
-            cell.classList.remove('booking-cell');
-        });
-
-        // Add bookings to grid
-        bookings.forEach(booking => {
-            const startTime = new Date(booking.start_time);
-            const day = startTime.getDay();
-            const hour = startTime.getHours();
-
-            const cell = document.querySelector(
-                `#bookingGridBody tr:nth-child(${hour - 6}) td:nth-child(${day + 2})`
-            );
-
-            if (cell) {
-                cell.innerHTML = `
-                    <div class="bg-blue-100 p-2 rounded">
-                        <p class="font-medium">${booking.subject?.name || 'Unknown Subject'}</p>
-                        <p class="text-sm">${booking.user_name || booking.student?.name || 'Unknown'}</p>
-                    </div>
-                `;
-                cell.classList.add('booking-cell');
-            }
-        });
-    }
-</script>
 </body>
 </html>
