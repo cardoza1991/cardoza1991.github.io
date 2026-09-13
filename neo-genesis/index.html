@@ -6,9 +6,9 @@
 <title>neo-genesis dish</title>
 <style>
 body{margin:0;background:#07080b;color:#d7e0d2;font:14px/1.4 ui-sans-serif,system-ui,sans-serif}
-header,footer,.row,.stats{padding:12px 18px}
+header,.row,.stats,.note{padding:12px 18px}
 h1{margin:0;font-size:18px;letter-spacing:.04em}
-header p{color:#7d8a78;max-width:42rem}
+header p,.note{color:#7d8a78;max-width:44rem}
 button,input{background:#12161a;color:inherit;border:1px solid #2a332a;padding:8px 12px;border-radius:8px}
 button.primary{background:#1d3a1d;border-color:#3d6a32}
 canvas{display:block;width:min(100%,720px);image-rendering:pixelated;margin:0 18px;border:1px solid #1c241c}
@@ -21,7 +21,7 @@ canvas{display:block;width:min(100%,720px);image-rendering:pixelated;margin:0 18
 <body>
 <header>
 <h1>NEO-GENESIS / DISH</h1>
-<p>No model. No chat. Cells eat, split, mutate, stick, share. Stages are earned. Source: github.com/cardoza1991/cardoza1991.github.io/tree/main/neo-genesis</p>
+<p>Occupied cells do not refill. Crowding costs energy. A frozen headcount was a grazer lock, not life.</p>
 </header>
 <div class="row">
 <button class="primary" id="run">pause</button>
@@ -38,42 +38,67 @@ canvas{display:block;width:min(100%,720px);image-rendering:pixelated;margin:0 18
 <div class="stat"><b id="st">-</b><span>BEST STAGE</span></div>
 <div class="stat"><b id="bd">0 / 0</b><span>BIRTHS / DEATHS</span></div>
 </div>
+<p class="note" id="note">Hard refresh the page (Ctrl+Shift+R) to load this physics. Green solo / amber 4-7 / white 8+.</p>
 <script>
-const W=54,H=30,CAP=10,REGEN=.35,MAXP=220;
+const W=54,H=30,CAP=10,REGEN=.28,MAXP=220,EMAX=48;
 const ANCESTOR=[4,5,3,5,7,2,5,3],DIRS=[[0,-1],[1,0],[0,1],[-1,0]];
 function mulberry(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
-let rng=mulberry(7),field,occ,orgs,nextId,tick,births,deaths,seedIds,playing=true;
+let rng=mulberry(7),field,occ,orgs,nextId,tick,births,deaths,seedIds,playing=true,lastEvent=0;
 function wrap(x,y){return[(x+W)%W,(y+H)%H]}
 function ahead(x,y,h){const d=DIRS[h&3];return wrap(x+d[0],y+d[1])}
 function vacant(x,y){const[a,b]=wrap(x,y);return occ[b][a]==null}
+function neighbors(x,y){let n=0;for(let h=0;h<4;h++){const[ax,ay]=ahead(x,y,h);if(occ[ay][ax]!=null)n++}return n}
 function inoculate(seed){
 rng=mulberry(seed>>>0);
 field=Array.from({length:H},()=>Array(W).fill(CAP));
 occ=Array.from({length:H},()=>Array(W).fill(null));
-orgs=new Map();nextId=1;tick=0;births=0;deaths=0;seedIds=new Set();
+orgs=new Map();nextId=1;tick=0;births=0;deaths=0;lastEvent=0;seedIds=new Set();
 let n=0,tries=0;
 while(n<8&&tries<200){tries++;const x=(rng()*W)|0,y=(rng()*H)|0;if(!vacant(x,y))continue;
-const o={id:nextId,x,y,h:(rng()*4)|0,e:40,g:ANCESTOR.slice(),ip:0,parent:null,sensed:0,adhered:false,cluster:1};
+const o={id:nextId,x,y,h:(rng()*4)|0,e:40,g:ANCESTOR.slice(),ip:0,parent:null,adhered:false,cluster:1};
 occ[y][x]=o.id;orgs.set(o.id,o);seedIds.add(o.id);nextId++;n++}}
 function mutate(g,rate){const out=g.slice();for(let i=0;i<out.length;){if(rng()>rate){i++;continue}const k=rng();
 if(k<.45)out[i]=(rng()*12)|0;else if(k<.7&&out.length<48){out.splice(i,0,(rng()*12)|0);i++}else if(k<.9&&out.length>6){out.splice(i,1);continue}else{const j=(rng()*out.length)|0;[out[i],out[j]]=[out[j],out[i]]}i++}return out}
-function exec(o){o.e-=1;if(o.e<=0)return null;const op=o.g[o.ip%o.g.length];o.ip=(o.ip+1)%o.g.length;
+function exec(o){
+o.e-=1+0.35*neighbors(o.x,o.y);
+if(o.e>EMAX)o.e=EMAX;
+if(o.e<=0)return null;
+const op=o.g[o.ip%o.g.length];o.ip=(o.ip+1)%o.g.length;
 if(op===1)o.h=(o.h+3)&3;else if(op===2)o.h=(o.h+1)&3;
-else if(op===3){if(!(o.adhered&&rng()<.7)){const[nx,ny]=ahead(o.x,o.y,o.h);if(vacant(nx,ny)){occ[o.y][o.x]=null;o.x=nx;o.y=ny;occ[ny][nx]=o.id;o.adhered=false}}}
+else if(op===3){if(!(o.adhered&&rng()<.55)){const[nx,ny]=ahead(o.x,o.y,o.h);if(vacant(nx,ny)){occ[o.y][o.x]=null;o.x=nx;o.y=ny;occ[ny][nx]=o.id;o.adhered=false}}}
 else if(op===4){let best=field[o.y][o.x],bh=o.h;for(let h=0;h<4;h++){const[ax,ay]=ahead(o.x,o.y,h);if(vacant(ax,ay)&&field[ay][ax]>best){best=field[ay][ax];bh=h}}o.h=bh}
-else if(op===5){const take=Math.min(6,field[o.y][o.x]);field[o.y][o.x]-=take;o.e+=take}
-else if(op===7){if(o.e<20)return null;let[nx,ny]=ahead(o.x,o.y,o.h);if(!vacant(nx,ny)){let ok=false;for(let h=0;h<4;h++){const t=ahead(o.x,o.y,h);if(vacant(t[0],t[1])){nx=t[0];ny=t[1];ok=true;break}}if(!ok)return null}
-o.e-=12;const given=o.e*.45;o.e-=given;return{id:-1,x:nx,y:ny,h:o.h,e:given,g:mutate(o.g,.03+.14*Math.max(0,1-o.e/36)),ip:0,parent:o.id,sensed:0,adhered:false,cluster:1}}
+else if(op===5){const take=Math.min(6,field[o.y][o.x]);field[o.y][o.x]-=take;o.e+=take;if(o.e>EMAX)o.e=EMAX}
+else if(op===7){if(o.e<20)return null;let[nx,ny]=ahead(o.x,o.y,o.h);if(!vacant(nx,ny)){let ok=false;for(let h=0;h<4;h++){const t=ahead(o.x,o.y,h);if(vacant(t[0],t[1])){nx=t[0];ny=t[1];ok=true;break}}if(!ok){o.e-=2;return null}}
+o.e-=12;const given=o.e*.45;o.e-=given;return{id:-1,x:nx,y:ny,h:o.h,e:given,g:mutate(o.g,.03+.14*Math.max(0,1-o.e/36)),ip:0,parent:o.id,adhered:false,cluster:1}}
 else if(op===8&&o.e>5){o.e-=4;o.g[(rng()*o.g.length)|0]=o.e<12?5:(rng()*12)|0}
 else if(op===10){o.e-=1;for(let h=0;h<4;h++){const[nx,ny]=ahead(o.x,o.y,h);if(occ[ny][nx]!=null){o.adhered=true;const n=orgs.get(occ[ny][nx]);if(n)n.adhered=true;break}}}
 else if(op===11&&o.e>6){const[nx,ny]=ahead(o.x,o.y,o.h);const n=orgs.get(occ[ny][nx]);if(n){const gift=Math.min(4,o.e-1);o.e-=gift;n.e+=gift;o.adhered=true}}return null}
 function clusters(){const seen=new Set();let mx=1;for(const o of orgs.values()){if(seen.has(o.id))continue;const q=[o.id],group=[];while(q.length){const id=q.pop();if(seen.has(id))continue;seen.add(id);const cur=orgs.get(id);if(!cur)continue;group.push(cur);for(let h=0;h<4;h++){const[nx,ny]=ahead(cur.x,cur.y,h);const nid=occ[ny][nx];if(nid!=null&&!seen.has(nid))q.push(nid)}}mx=Math.max(mx,group.length);for(const c of group)c.cluster=group.length}return mx}
 function stageOf(o){const ops=new Set(o.g),novel=[8,9,10,11].some(x=>ops.has(x));if(o.cluster>=8&&ops.size>=6&&o.adhered)return"Ultimate";if(o.cluster>=4&&(o.adhered||ops.has(10)||ops.has(11)))return"Champion";if(novel&&o.parent!=null)return"Rookie";if(o.parent!=null)return"In-Training";return"Fresh"}
-function step(){tick++;const order=[...orgs.keys()].sort(()=>rng()-.5),born=[];for(let s=0;s<3;s++){for(const id of order){const o=orgs.get(id);if(!o||o.e<=0)continue;const child=exec(o);if(child&&orgs.size+born.length<MAXP&&vacant(child.x,child.y)){child.id=nextId++;occ[child.y][child.x]=child.id;born.push(child);births++}}}for(const c of born)orgs.set(c.id,c);for(const[id,o]of[...orgs]){if(o.e<=0){occ[o.y][o.x]=null;orgs.delete(id);deaths++}}for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(field[y][x]<CAP)field[y][x]=Math.min(CAP,field[y][x]+REGEN)}
+function step(){
+tick++;
+const order=[...orgs.keys()].sort(()=>rng()-.5),born=[];
+for(let s=0;s<3;s++){
+for(const id of order){
+const o=orgs.get(id);if(!o||o.e<=0)continue;
+const child=exec(o);
+if(child&&orgs.size+born.length<MAXP&&vacant(child.x,child.y)){child.id=nextId++;occ[child.y][child.x]=child.id;born.push(child);births++;lastEvent=tick}
+}
+}
+for(const c of born)orgs.set(c.id,c);
+for(const[id,o]of[...orgs]){if(o.e<=0){occ[o.y][o.x]=null;orgs.delete(id);deaths++;lastEvent=tick}}
+for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+if(occ[y][x]!=null)continue;
+if(field[y][x]<CAP)field[y][x]=Math.min(CAP,field[y][x]+REGEN);
+}
+}
 const cv=document.getElementById("c"),ctx=cv.getContext("2d");
 function draw(){const cw=cv.width/W,ch=cv.height/H;ctx.fillStyle="#050605";ctx.fillRect(0,0,cv.width,cv.height);for(let y=0;y<H;y++)for(let x=0;x<W;x++){ctx.fillStyle=`rgba(80,110,70,${.12+field[y][x]/CAP*.25})`;ctx.fillRect(x*cw,y*ch,cw,ch)}for(const o of orgs.values()){ctx.fillStyle=o.cluster>=8?"#f4f0e0":o.cluster>=4?"#e0a35a":"#7dcf6a";ctx.fillRect(o.x*cw+1,o.y*ch+1,cw-2,ch-2)}}
 function hud(){const mx=clusters();let best="-",ord=["Fresh","In-Training","Rookie","Champion","Ultimate"];const keys=new Set();for(const o of orgs.values()){const s=stageOf(o);keys.add(o.g.join("."));if(ord.indexOf(s)>ord.indexOf(best))best=s}const seedFree=orgs.size>0&&![...seedIds].some(id=>orgs.has(id));
-document.getElementById("pop").textContent=orgs.size;document.getElementById("gen").textContent=keys.size;document.getElementById("sf").textContent=seedFree?"YES":"no";document.getElementById("cl").textContent=mx;document.getElementById("st").textContent=best;document.getElementById("bd").textContent=births+" / "+deaths;document.getElementById("ticklab").textContent="t="+tick}
+document.getElementById("pop").textContent=orgs.size;document.getElementById("gen").textContent=keys.size;document.getElementById("sf").textContent=seedFree?"YES":"no";document.getElementById("cl").textContent=mx;document.getElementById("st").textContent=best;document.getElementById("bd").textContent=births+" / "+deaths;
+const stall=tick-lastEvent;
+document.getElementById("ticklab").textContent="t="+tick+(stall>80?"  stall "+stall:"");
+}
 function frame(){if(playing){step();step()}draw();hud();requestAnimationFrame(frame)}
 document.getElementById("run").onclick=()=>{playing=!playing;document.getElementById("run").textContent=playing?"pause":"run"};
 document.getElementById("reinoc").onclick=()=>inoculate(+document.getElementById("seed").value||7);
